@@ -39,3 +39,64 @@ def calc_highest_yield_crop_per_reigon(data):
         result[country] = highest[country][0]
     return result
 
+def calc_average_temp_per_region(data):
+    totals = {}
+    counts = {}
+    for row in data: 
+        region = row['Region']
+        try: 
+            temp_value = float(row['Avg_temp'])
+        except: 
+            continue
+        totals[region] = totals.get(region, 0.0) + temp_value
+        counts[region] = counts.get(region, 0) + 1
+
+def calc_total_area_harvested_by_year(data):
+    totals = {}
+    area_col = 'Area_harvested'
+    for row in data:
+        year = row['Year']
+        try:
+            area_value = float(row.get(area_col, ''))
+        except: 
+            continue
+        totals[year] = totals.get(year, 0.0) + area_value
+    return totals
+
+def calc_average_rainfall_per_region(data):
+    totals = {}
+    counts = {}
+    rain_col = 'Rainfall_mm'
+    for row in data: 
+        region = row['Reigon']
+        try: 
+            rainfall_value = float(row.get(rain_col, ''))
+        except: 
+            continue
+        totals[region] = totals.get(region, 0.0) + rainfall_value
+        counts[region] = counts.get(region, 0) + 1
+    averages = {}
+    for region in totals: 
+        averages[region] = totals[region] / counts[region]
+    return averages
+
+def calc_average_fertilizer_per_crop(data):
+    totals = {}
+    counts = {}
+    fert_col = 'Fertilizer_Used'
+    for row in data: 
+        crop = row['Crop']
+        try: 
+            fertilizer_value = float(row.get(fert_col, ''))
+        except:
+            continue
+        totals[crop] = totals.get(crop, 0.0) + fertilizer_value
+        counts[crop] = counts.get(crop, 0) + 1
+    averages = {}
+    for crop in totals: 
+        averages[crop] = totals[crop] / counts [crop]
+    return averages
+if __name__ == "__main__":
+    pass
+                                      
+
